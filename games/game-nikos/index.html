@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <title>Game Nikos – Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Rock · Paper · Scissors</h1>
+    <p>Διάλεξε ένα:</p>
+
+    <div class="buttons">
+      <button data-choice="rock">✊ Πέτρα</button>
+      <button data-choice="paper">✋ Χαρτί</button>
+      <button data-choice="scissors">✌️ Ψαλίδι</button>
+    </div>
+	
+	<div class="score">
+  <span>Παίκτης: <b id="pScore">0</b></span>
+  <span>Υπολογιστής: <b id="cScore">0</b></span>
+	</div>
+
+<button id="reset">Reset</button>
+
+
+    <p id="result"></p>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
