@@ -3,3 +3,14 @@ body { font-family: system-ui, Arial; background:#f4f6fb; margin:0; }
 .buttons { display:flex; justify-content:space-around; margin:20px 0; }
 button { padding:12px 16px; font-size:16px; cursor:pointer; }
 #result { font-weight:700; margin-top:20px; }
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+#reset {
+  margin-top: 10px;
+  width: 100%;
+}
