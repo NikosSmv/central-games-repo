@@ -11,20 +11,20 @@ let cScore = 0;
 
 function playRound(player) {
   const computer = choices[Math.floor(Math.random() * 3)];
-  let message = `Εσύ: ${player} | Υπολογιστής: ${computer}. `;
+ let message = `Εσύ: ${player} | Υπολογιστής: ${computer} → `;
 
   if (player === computer) {
-    message += "Ισοπαλία 🤝";
+    message += "🤝 Ισοπαλία";
   } else if (
     (player === "rock" && computer === "scissors") ||
     (player === "paper" && computer === "rock") ||
     (player === "scissors" && computer === "paper")
   ) {
     pScore++;
-    message += "Κέρδισες 🎉";
+    message += "✅ Νίκη!";
   } else {
     cScore++;
-    message += "Έχασες 😢";
+    message += "❌ Ήττα!";
   }
 
   pScoreEl.textContent = pScore;

@@ -14,3 +14,9 @@ button { padding:12px 16px; font-size:16px; cursor:pointer; }
   margin-top: 10px;
   width: 100%;
 }
+
+.hint {
+  margin-top: -6px;
+  opacity: 0.8;
+  font-size: 14px;
+}
