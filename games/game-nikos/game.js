@@ -8,10 +8,32 @@ const resetBtn = document.getElementById("reset");
 const choices = ["rock", "paper", "scissors"];
 let pScore = 0;
 let cScore = 0;
+let gameOver = false;
+
+function computerPick() {
+  return choices[Math.floor(Math.random() * 3)];
+}
+
+function updateScore() {
+  pScoreEl.textContent = String(pScore);
+  cScoreEl.textContent = String(cScore);
+}
+
+function endIfNeeded() {
+  if (pScore >= 3) {
+    gameOver = true;
+    result.textContent = "🏆 Τέλος! Κέρδισες το best-of-3!";
+  } else if (cScore >= 3) {
+    gameOver = true;
+    result.textContent = "💀 Τέλος! Έχασες στο best-of-3.";
+  }
+}
 
 function playRound(player) {
-  const computer = choices[Math.floor(Math.random() * 3)];
- let message = `Εσύ: ${player} | Υπολογιστής: ${computer} → `;
+  if (gameOver) return;
+
+  const computer = computerPick();
+  let message = `Εσύ: ${player} | Υπολογιστής: ${computer} → `;
 
   if (player === computer) {
     message += "🤝 Ισοπαλία";
@@ -27,19 +49,19 @@ function playRound(player) {
     message += "❌ Ήττα!";
   }
 
-  pScoreEl.textContent = pScore;
-  cScoreEl.textContent = cScore;
+  updateScore();
   result.textContent = message;
+  endIfNeeded();
 }
 
-buttons.forEach(btn => {
+buttons.forEach((btn) => {
   btn.addEventListener("click", () => playRound(btn.dataset.choice));
 });
 
 resetBtn.addEventListener("click", () => {
   pScore = 0;
   cScore = 0;
-  pScoreEl.textContent = "0";
-  cScoreEl.textContent = "0";
-  result.textContent = "Έγινε reset ✅";
+  gameOver = false;
+  updateScore();
+  result.textContent = "Έγινε reset ✅ Παίξε ξανά!";
 });
