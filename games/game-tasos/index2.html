@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the Number - Advanced</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input, select, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    #output {
+      font-size: 18px;
+      margin-top: 20px;
+      min-height: 40px;
+    }
+
+    .score-board {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Guess the Number 🎯</h1>
+
+  <p>Select difficulty:</p>
+  <select id="difficulty">
+    <option value="10">Easy (1–10)</option>
+    <option value="50">Medium (1–50)</option>
+    <option value="100">Hard (1–100)</option>
+  </select>
+
+  <p>Type your guess:</p>
+  <input type="number" id="guessInput">
+  <button onclick="checkGuess()">Guess</button>
+
+  <p id="output"></p>
+
+  <div class="score-board">
+    <p id="bestScore">Best Score: -</p>
+  </div>
+
+  <script>
+    let secretNumber;
+    let attempts;
+    let maxRange;
+    let bestScores = { 10: null, 50: null, 100: null };
+
+    function startGame() {
+      maxRange = Number(document.getElementById("difficulty").value);
+      secretNumber = Math.floor(Math.random() * maxRange) + 1;
+      attempts = 0;
+      document.getElementById("guessInput").value = "";
+      document.getElementById("output").textContent = "";
+      updateBestScore();
+      document.getElementById("guessInput").focus();
+    }
+
+    function checkGuess() {
+      const guess = Number(document.getElementById("guessInput").value);
+      const output = document.getElementById("output");
+
+      if (!guess || guess < 1 || guess > maxRange) {
+        output.textContent = `⚠️ Please enter a number between 1 and ${maxRange}.`;
+        return;
+      }
+
+      attempts++;
+
+      if (guess === secretNumber) {
+        output.innerHTML = `
+          🎉 Correct! You guessed it in ${attempts} tries.<br>
+          <button onclick="startGame()">Play Again</button>
+        `;
+        // Update best score
+        if (!bestScores[maxRange] || attempts < bestScores[maxRange]) {
+          bestScores[maxRange] = attempts;
+          updateBestScore();
+        }
+      } else if (guess < secretNumber) {
+        output.textContent = "📉 Too low! Try again.";
+      } else {
+        output.textContent = "📈 Too high! Try again.";
+      }
+
+      document.getElementById("guessInput").value = "";
+      document.getElementById("guessInput").focus();
+    }
+
+    function updateBestScore() {
+      const scoreText = bestScores[maxRange] ? bestScores[maxRange] : "-";
+      document.getElementById("bestScore").textContent = `Best Score: ${scoreText}`;
+    }
+
+    // Start the game initially
+    startGame();
+
+    // Enter key support
+    document.getElementById("guessInput").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        checkGuess();
+      }
+    });
+
+    // Change difficulty resets the game
+    document.getElementById("difficulty").addEventListener("change", startGame);
+  </script>
+</body>
+</html>
